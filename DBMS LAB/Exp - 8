@@ -1,0 +1,14 @@
+create table Employee(ssn int primary key,ename varchar(20),age int(2),salary real); 
+INSERT into Employee values(1,"RAM",20,10000); 
+INSERT into Employee values(2,"Divya",21,15000); 
+INSERT into Employee values(3,"Rashmi",24,13000); 
+select * from Employee;
+delimiter  //
+create trigger mytriggerb4insert BEFORE INSERT ON Employee
+for each row
+begin
+if new.salary < 13000 then
+Set new.salary = 13000;
+end if;
+end;
+//
