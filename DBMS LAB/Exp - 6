@@ -1,0 +1,15 @@
+create table customer(customer_id int primary key,customer_name varchar(20));
+insert into customer values(1,"Deepu"),(2,"hari"),(3,"indhu"),(4,"Teja"),(5,"Mithu");
+select * from customer;
+
+create table reservations(res_id int primary key,cus_id int,foreign key(cus_id) references customer(customer_id),day date);
+insert into reservations values(100,1,"2021-12-12"),(200,2,"2021-12-24"),(300,3,"2021-12-25"),(400,6,"2021-12-26");
+select * from reservations;
+
+select customer_id from customer where customer_id<>all(select cus_id from reservations);
+select customer_id from customer where customer_id = any(select cus_id from reservations);
+select customer_id from customer where customer_id = some(select cus_id from reservations);
+select customer_id from customer where customer_id in (select cus_id from reservations);
+
+select customer_id from customer where customer_id <3  union select cus_id from reservations where day = "2021-12-12";
+select customer_id  from customer where customer_id<5 and customer_id in(select customer_id from reservations where day='2021-12-24');
